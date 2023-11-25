@@ -16,7 +16,6 @@ import { themeContext } from "../../../main";
 
 const Slider = () => {
   const styleTitle = {
-    //   color: "white",
     textAlign: "center",
 
     fontWeight: 700,
