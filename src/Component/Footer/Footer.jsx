@@ -1,11 +1,12 @@
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
+import { ThemeContext, useTheme } from "@emotion/react";
+import { Avatar, Box, Container } from "@mui/material";
 import Typography from "@mui/material/Typography";
-
-const siteFooterStyle = {
-  backgroundColor: "#f8f9fa",
-  padding: "50px 0",
-};
+import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
+import CallIcon from "@mui/icons-material/Call";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 const footerHeadingStyle = {
   marginBottom: "20px",
@@ -18,132 +19,178 @@ const navigationListStyle = {
 
 const navigationLinkStyle = {
   textDecoration: "none",
-  color: "#333",
-};
-
-const followUsIconsStyle = {
-  "& a": {
-    paddingLeft: "10px",
-    paddingRight: "10px",
-  },
+  color: "#fff",
 };
 
 const copyrightTextStyle = {
-  color: "#333",
+  color: "#f09b3b",
   marginTop: "20px",
+  textAlign: "center",
 };
 
 const Footer = () => {
+  const theme = useTheme(ThemeContext);
+
   return (
-    <footer style={siteFooterStyle}>
-      <Container>
-        <Grid container spacing={3}>
-          <Grid item xs={12} lg={4}>
+    <footer
+      style={{
+        backgroundColor: ` ${theme.palette.primary.main}`,
+        padding: "50px 0",
+        color: "#fff",
+      }}
+    >
+      <Container maxWidth="xl">
+        <Box
+          display="flex"
+          justifyContent="space-around"
+          container
+          flexWrap="wrap"
+          gap={2}
+        >
+          <Box>
             <div className="mb-5">
               <Typography variant="h3" style={footerHeadingStyle}>
                 About Homeland
               </Typography>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe
-                pariatur reprehenderit vero atque, consequatur id ratione, et
-                non dignissimos culpa? Ut veritatis, quos illum totam quis
-                blanditiis, minima minus odio!
-              </Typography>
+              <Box>
+                <Typography display="flex" gap={1}>
+                  <AlternateEmailIcon></AlternateEmailIcon>HarborHomes@gmail.com
+                </Typography>
+                <Typography mt={1} display="flex" gap={1}>
+                  <CallIcon></CallIcon> 01XXXXXXXXXXX
+                </Typography>
+              </Box>
             </div>
-          </Grid>
-          <Grid item xs={12} lg={4} className="mb-5 mb-lg-0">
+          </Box>
+          <Box>
             <div className="row mb-5">
-              <Grid item xs={12}>
+              <Box>
                 <Typography variant="h3" style={footerHeadingStyle}>
                   Navigations
                 </Typography>
-              </Grid>
-              <Grid item xs={6} lg={6}>
-                <ul style={navigationListStyle}>
-                  <li>
-                    <a href="#" style={navigationLinkStyle}>
-                      Home
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" style={navigationLinkStyle}>
-                      Buy
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" style={navigationLinkStyle}>
-                      Rent
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" style={navigationLinkStyle}>
-                      Properties
-                    </a>
-                  </li>
-                </ul>
-              </Grid>
-              <Grid item xs={6} lg={6}>
-                <ul style={navigationListStyle}>
-                  <li>
-                    <a href="#" style={navigationLinkStyle}>
-                      About Us
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" style={navigationLinkStyle}>
-                      Privacy Policy
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" style={navigationLinkStyle}>
-                      Contact Us
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" style={navigationLinkStyle}>
-                      Terms
-                    </a>
-                  </li>
-                </ul>
-              </Grid>
+              </Box>
+              <Box gap={5} display="flex">
+                {" "}
+                <Box>
+                  <ul style={navigationListStyle}>
+                    <li>
+                      <a href="#" style={navigationLinkStyle}>
+                        Home
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" style={navigationLinkStyle}>
+                        Buy
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" style={navigationLinkStyle}>
+                        Rent
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" style={navigationLinkStyle}>
+                        Properties
+                      </a>
+                    </li>
+                  </ul>
+                </Box>
+                <Box>
+                  <ul style={navigationListStyle}>
+                    <li>
+                      <a href="#" style={navigationLinkStyle}>
+                        About Us
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" style={navigationLinkStyle}>
+                        Privacy Policy
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" style={navigationLinkStyle}>
+                        Contact Us
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" style={navigationLinkStyle}>
+                        Terms
+                      </a>
+                    </li>
+                  </ul>
+                </Box>
+              </Box>
             </div>
-          </Grid>
-          <Grid item xs={12} lg={4} className="mb-5 mb-lg-0">
+          </Box>
+          <Box>
             <Typography variant="h3" style={footerHeadingStyle}>
               Follow Us
             </Typography>
-            <div style={followUsIconsStyle}>
+            <Box justifyContent="space-between" display="flex">
               <a href="#">
-                <span className="icon-facebook"></span>
-              </a>
-              <a href="#">
-                <span className="icon-twitter"></span>
-              </a>
-              <a href="#">
-                <span className="icon-instagram"></span>
+                <FacebookIcon
+                  style={{ color: "#f09b3b", fontSize: "40px" }}
+                ></FacebookIcon>
               </a>
               <a href="#">
-                <span className="icon-linkedin"></span>
+                <TwitterIcon
+                  style={{ color: "#f09b3b", fontSize: "40px" }}
+                ></TwitterIcon>
               </a>
-            </div>
-          </Grid>
-        </Grid>
-        <Grid container spacing={3} justifyContent="center">
-          <Grid item xs={12}>
-            <Typography variant="body2" style={copyrightTextStyle}>
-              Copyright ©{new Date().getFullYear()} All rights reserved | This
-              template is made with{" "}
-              <i className="icon-heart text-danger" aria-hidden="true"></i> by{" "}
-              <a
-                href="https://colorlib.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Colorlib
+              <a href="#">
+                <InstagramIcon
+                  style={{ color: "#f09b3b", fontSize: "40px" }}
+                ></InstagramIcon>
               </a>
+              <a href="#">
+                <LinkedInIcon
+                  style={{ color: "#f09b3b", fontSize: "40px" }}
+                ></LinkedInIcon>
+              </a>
+            </Box>
+          </Box>
+        </Box>
+
+        <Box
+          display="flex"
+          flexWrap="wrap"
+          gap={2}
+          mt={5}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Typography variant="body2" style={copyrightTextStyle}>
+            Copyright ©{new Date().getFullYear()} All rights reserved | This
+            template is made with{" "}
+          </Typography>
+          <Box display="flex" alignItems="center">
+            <Avatar
+              src="https://i.ibb.co/K22tnBV/Real-Estate-Symbols-Clipart-PNG-Images-Real-Estate-Logo-Real-Estate-Estate-Real-Estate-Logo-Icon-PNG.png"
+              alt="Logo"
+              sx={{
+                display: "flex",
+                height: "100px",
+                mr: "8px",
+              }}
+            />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              HarborHomes
             </Typography>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Container>
     </footer>
   );
