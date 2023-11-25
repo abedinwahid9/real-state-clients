@@ -1,0 +1,104 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "event_type": "Wedding",
+      "name": "Elegant Garden Wedding",
+      "image": "https://i.ibb.co/nzpj4Bm/6461178d-1112-4587-97d9-f5582fdadaed.webp",
+      "price": "$12,000",
+      "short_description": "A dreamy garden wedding in a picturesque setting.",
+      "details": {
+        "venue": "Botanical Gardens",
+        "guest_capacity": "150 guests",
+        "decorations": "Floral arrangements, fairy lights",
+        "catering": "Gourmet menu with customization",
+        "entertainment": "Live band, DJ",
+        "photography": "Professional photographers",
+        "extras": "Wedding cake, dance floor, wedding planner"
+      }
+    },
+    {
+      "id": 2,
+      "event_type": "Birthday Party",
+      "name": "Superhero Themed Birthday Bash",
+      "image": "https://i.ibb.co/s3qZY71/634e34b3ead39b70964dd7c2-superhero-balloon-themed-birthday-party.jpg",
+      "price": "$800",
+      "short_description": "A fun-filled superhero birthday party for kids.",
+      "details": {
+        "venue": "Indoor party hall",
+        "age_group": "Children (ages 4-10)",
+        "theme": "Superheroes (Batman, Spider-Man, etc.)",
+        "entertainment": "Costumed superheroes, games, activities",
+        "cake": "Custom superhero-themed cake",
+        "goodie_bags": "Themed party favors"
+      }
+    },
+    {
+      "id": 3,
+      "event_type": "Anniversary",
+      "name": "Silver Jubilee Anniversary Celebration",
+      "image": "https://i.ibb.co/sCZkhKW/25th-Wedding-Anniversary-wishes-106.jpg",
+      "price": "$5,500",
+      "short_description": "A memorable celebration of 25 years of love and togetherness.",
+      "details": {
+        "venue": "Luxury banquet hall",
+        "guest_capacity": "100 guests",
+        "decorations": "Silver and white theme, floral centerpieces",
+        "catering": "Fine dining with champagne toast",
+        "entertainment": "Live music, dance floor",
+        "photography": "Professional anniversary photos",
+        "special_touch": "Renewal of vows ceremony"
+      }
+    },
+    {
+      "id": 4,
+      "event_type": "Baby Shower",
+      "name": "Baby Bliss Shower",
+      "image": "https://i.ibb.co/CzDRWT1/image-ca7fb88e-52e0-4847-9715-9deade30bf5f.webp",
+      "price": "$500",
+      "short_description": "A joyful baby shower to welcome the little one.",
+      "details": {
+        "venue": "Cozy backyard garden",
+        "guest_capacity": "30 guests",
+        "theme": "Gender-neutral baby theme",
+        "decorations": "Balloon arch, baby-themed decor",
+        "catering": "Brunch menu with desserts",
+        "activities": "Baby games, advice cards",
+        "gifts": "Gift registry available"
+      }
+    },
+    {
+      "id": 5,
+      "event_type": "Wedding",
+      "name": "Beachfront Destination Wedding",
+      "image": "https://i.ibb.co/2h3Xxks/Moving-Pictures.jpg",
+      "price": "$18,500",
+      "short_description": "A romantic beachfront wedding in paradise.",
+      "details": {
+        "destination": "Tropical beach resort",
+        "guest_capacity": "200 guests",
+        "scenery": "Sunset beach ceremony",
+        "catering": "Seafood buffet, tropical cocktails",
+        "entertainment": "Steel drum band, fire dancers",
+        "photography": "Destination wedding photographer",
+        "extras": "Beachfront gazebo, wedding planner"
+      }
+    },
+    {
+      "id": 6,
+      "event_type": "Birthday Party",
+      "name": "Princess Tea Party",
+      "image": "https://i.ibb.co/x1GdDm0/Royal-Tea-Party1-1024x565.jpg",
+      "price": "$600",
+      "short_description": "A magical princess-themed tea party for little royals.",
+      "details": {
+        "venue": "Enchanted garden tea house",
+        "age_group": "Children (ages 3-7)",
+        "theme": "Princesses (Cinderella, Belle, etc.)",
+        "entertainment": "Princess meet-and-greet, tea party",
+        "cake": "Princess-themed cake, tea sandwiches",
+        "activities": "Dress-up, tiara crafting"
+      }
+    }
+  ]
+}

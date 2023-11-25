@@ -1,0 +1,34 @@
+{
+  "reviews": [
+    {
+      "id": 1,
+      "img": "https://i.ibb.co/K9wdZ1V/pexels-amir-esrafili-6274712.jpg",
+      "name": "John Smith",
+      "review": "We hired your team for our wedding, and it was absolutely fantastic! The decorations, food, and overall planning were impeccable. Thank you for making our special day perfect."
+    },
+    {
+      "id": 2,
+      "img": "https://i.ibb.co/c2DYwZ4/pexels-rachel-claire-5490276.jpg",
+      "name": "Elam Johnson",
+      "review": "I can't express how grateful I am for your services. Our party was a huge success, and everyone raved about the beautiful decor and entertainment. You truly exceeded our expectations."
+    },
+    {
+      "id": 3,
+      "img": "https://i.ibb.co/xCxWNWR/pd.jpg",
+      "name": "Anna",
+      "review": "Your team made our wedding day stress-free and magical. The attention to detail and professionalism were outstanding. We couldn't have asked for a better planner."
+    },
+    {
+      "id": 4,
+      "img": "https://i.ibb.co/s6sPpBh/pexels-carol-wd-3454298.jpg",
+      "name": "Sarah Brown",
+      "review": "We had a blast at our anniversary party, all thanks to your expertise. The DJ and the lighting set the perfect mood, and the decorations were stunning."
+    },
+    {
+      "id": 5,
+      "img": "https://i.ibb.co/v1thmVG/pexels-cottonbro-studio-5378700.jpg",
+      "name": "David Wilson",
+      "review": "I highly recommend your services to anyone planning a special event. Your team made our daughter's sweet 16 party unforgettable. The kids had a blast!"
+    }
+  ]
+}
