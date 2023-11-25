@@ -1,25 +1,7 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
-import { makeStyles } from "@mui/system";
-
-const useStyles = makeStyles((theme) => ({
-  card: {
-    maxWidth: 400,
-    margin: "16px",
-    backgroundColor: "#f5f5f5", // Change this to your desired background color
-    borderRadius: "8px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-  },
-  avatar: {
-    width: theme.spacing(6),
-    height: theme.spacing(6),
-  },
-  reviewDescription: {
-    marginTop: "8px",
-  },
-}));
+import Typography from "@mui/material/Typography";
 
 const ReviewCard = ({
   reviewerName,
@@ -27,26 +9,34 @@ const ReviewCard = ({
   reviewDescription,
   propertyTitle,
 }) => {
-  const classes = useStyles();
-
   return (
-    <Card className={classes.card}>
-      <CardContent>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <Avatar
-            className={classes.avatar}
-            src={"reviewerImage"}
-            alt={"reviewerName"}
-          />
-          <Typography variant="h6" style={{ marginLeft: "8px" }}>
-            {"reviewerName"}
-          </Typography>
-        </div>
-        <Typography variant="body2" className={classes.reviewDescription}>
+    <Card
+      style={{
+        display: "flex",
+        width: "100%",
+        height: "170px",
+        padding: "30px",
+        backgroundColor: "rgba(255, 255, 255, 0.450)",
+        borderRadius: "8px",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+      }}
+    >
+      <Avatar
+        src={"reviewerImage"}
+        alt={"reviewerName"}
+        style={{
+          width: "150px",
+          height: "150px",
+          borderRadius: "10%",
+        }}
+      />
+      <CardContent style={{ flex: 1, padding: "20px" }}>
+        <Typography variant="h5">{"reviewerName"}</Typography>
+        <Typography variant="body1" paragraph>
           {"reviewDescription"}
         </Typography>
-        <Typography variant="subtitle2" color="textSecondary">
-          Property: {"propertyTitle"}
+        <Typography variant="body2" color="textSecondary">
+          <strong>Property:</strong> {"propertyTitle"}
         </Typography>
       </CardContent>
     </Card>
