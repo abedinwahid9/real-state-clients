@@ -20,7 +20,7 @@ const pages = [
     link: "",
   },
   {
-    name: "All properties",
+    name: "All Properties",
     link: "allproperties",
   },
   {
@@ -127,7 +127,9 @@ function Navbar() {
                   to={`/${page.link}`}
                 >
                   <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page.name}</Typography>
+                    <Typography sx={{ fontWeight: 600 }} textAlign="center">
+                      {page.name}
+                    </Typography>
                   </MenuItem>{" "}
                 </NavLink>
               ))}
@@ -163,7 +165,9 @@ function Navbar() {
                 }}
                 to={`/${page.link}`}
               >
-                <Typography sx={{ mx: 1 }}>{page.name}</Typography>
+                <Typography sx={{ mx: 1, fontWeight: 600 }}>
+                  {page.name}
+                </Typography>
               </NavLink>
             ))}
           </Box>
