@@ -11,10 +11,14 @@ const ReviewCard = ({
 }) => {
   return (
     <Card
+      sx={{
+        flexDirection: { sm: "row", xs: "column" },
+        alignItems: "center",
+      }}
       style={{
         display: "flex",
-        width: "100%",
-        height: "170px",
+        // width: "100%",
+        // height: "100%",
         padding: "30px",
         backgroundColor: "rgba(255, 255, 255, 0.450)",
         borderRadius: "8px",

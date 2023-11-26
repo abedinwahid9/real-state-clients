@@ -2,6 +2,7 @@ import { Box, Grid } from "@mui/material";
 import PropertiesCard from "../../../Component/Card/PropertiesCard/PropertiesCard";
 import SectionTitle from "../../../Component/SectionTitle/SectionTitle";
 import CustomButton from "../../../ShareComponent/Button/CustomButton";
+import { Link } from "react-router-dom";
 
 const OurPropertisSection = () => {
   return (
@@ -28,7 +29,9 @@ const OurPropertisSection = () => {
         </Grid>
       </Grid>
       <Box mt={3} mx="auto" sx={{ width: "100%" }}>
-        <CustomButton title="See All"></CustomButton>
+        <Link to="/allproperties">
+          <CustomButton title="See All"></CustomButton>
+        </Link>
       </Box>
     </div>
   );

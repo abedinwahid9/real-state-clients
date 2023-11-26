@@ -124,7 +124,7 @@ const Login = () => {
         md={7}
         display={{ xs: "none", sm: "flex" }}
         sx={{
-          backgroundImage: "url(https://i.ibb.co/hW5xcp0/pngegg-1-1-1.png)",
+          backgroundImage: "url(https://i.ibb.co/BqwGdbS/pngegg-1-1.png)",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "left",

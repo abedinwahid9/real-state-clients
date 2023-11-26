@@ -9,9 +9,26 @@ const Reviews = () => {
   const [sliderRef] = useKeenSlider({
     loop: true,
     mode: "free",
-    slides: {
-      perView: 3,
-      spacing: 15,
+
+    breakpoints: {
+      "(min-width: 500px)": {
+        slides: {
+          perView: 1,
+          spacing: 50,
+        },
+      },
+      "(min-width: 780px)": {
+        slides: {
+          perView: 2,
+          spacing: 20,
+        },
+      },
+      "(min-width: 1024px)": {
+        slides: {
+          perView: 3,
+          spacing: 20,
+        },
+      },
     },
   });
 

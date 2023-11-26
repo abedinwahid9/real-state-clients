@@ -72,7 +72,7 @@ const PropertiesCard = () => {
             </Box>
           </Stack>
 
-          <Box mt={1}>
+          <Box display="flex" justifyContent="space-between" mt={1}>
             <Typography
               variant="h6"
               sx={{ fontWeight: 600, wordSpacing: 2 }}
@@ -82,6 +82,27 @@ const PropertiesCard = () => {
             </Typography>
             <Typography sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <VerifiedIcon /> Verified
+            </Typography>
+          </Box>
+          <Box display="flex" mt={1}>
+            <Typography
+              variant="h6"
+              mr={2}
+              sx={{ fontWeight: 600, wordSpacing: 2 }}
+              color={`${theme.palette.primary.main}`}
+            >
+              Range:
+            </Typography>
+            <Typography
+              variant="h6"
+              sx={{
+                display: "flex",
+                fontWeight: 600,
+                alignItems: "center",
+                gap: 1,
+              }}
+            >
+              $400 - $500
             </Typography>
           </Box>
           <Box color={theme.palette.primary.main} display="flex" gap={3} mt={1}>
