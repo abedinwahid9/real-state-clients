@@ -7,6 +7,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import FmdGoodIcon from "@mui/icons-material/FmdGood";
 
 const footerHeadingStyle = {
   marginBottom: "20px",
@@ -58,6 +59,9 @@ const Footer = () => {
                 </Typography>
                 <Typography mt={1} display="flex" gap={1}>
                   <CallIcon></CallIcon> 01XXXXXXXXXXX
+                </Typography>
+                <Typography mt={1} display="flex" gap={1}>
+                  <FmdGoodIcon></FmdGoodIcon> Dhaka,Bangladesh
                 </Typography>
               </Box>
             </div>
