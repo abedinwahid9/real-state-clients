@@ -74,7 +74,7 @@ const Signup = () => {
                 fullWidth
                 {...register("name")}
                 id="name"
-                label="Name Address"
+                label="Name"
                 autoComplete="name"
                 autoFocus
               />
