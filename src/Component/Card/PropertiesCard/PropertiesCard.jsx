@@ -7,6 +7,7 @@ import { useTheme } from "@emotion/react";
 import { themeContext } from "../../../main";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import CustomButton from "../../../ShareComponent/Button/CustomButton";
+import { Link } from "react-router-dom";
 
 const PropertiesCard = () => {
   const theme = useTheme(themeContext);
@@ -129,7 +130,9 @@ const PropertiesCard = () => {
             </Box>
           </Box>
         </CardContent>{" "}
-        <CustomButton color={theme.palette.Third.main} title="Details" />
+        <Link to="/propertiesdetails">
+          <CustomButton color={theme.palette.Third.main} title="Details" />
+        </Link>
       </CardActionArea>
     </Card>
   );
