@@ -11,9 +11,31 @@ import {
 } from "@mui/material";
 import { themeContext } from "../../main";
 import ReviewCard from "../../Component/Card/ReviewCard/ReviewCard";
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
 
 const PropertiesDetails = () => {
   const theme = useTheme(themeContext);
+
+  const [sliderRef] = useKeenSlider({
+    loop: true,
+    mode: "free",
+    breakpoints: {
+      "(min-width: 500px)": {
+        slides: {
+          perView: 1,
+          spacing: 15,
+        },
+      },
+
+      "(min-width: 980px)": {
+        slides: {
+          perView: 2,
+          spacing: 20,
+        },
+      },
+    },
+  });
 
   return (
     <div>
@@ -115,13 +137,43 @@ const PropertiesDetails = () => {
           </Box>
         </Paper>
         <Paper elevation={24} sx={{ mt: 4, p: 4, borderRadius: 5 }}>
-          <Box mt={10}>
-            <Typography variant="body1" color="initial">
-              reviews
+          <Box mt={5}>
+            <Typography
+              mb={2}
+              textAlign="center"
+              variant="h3"
+              fontWeight={600}
+              color="initial"
+            >
+              Reviews
             </Typography>
-            <ReviewCard></ReviewCard>
-            <ReviewCard></ReviewCard>
-            <ReviewCard></ReviewCard>
+            <Divider></Divider>
+            <Box my={3}>
+              <div
+                style={{ padding: 5 }}
+                ref={sliderRef}
+                className="keen-slider"
+              >
+                <Paper
+                  sx={{ boxShadow: 2 }}
+                  className="keen-slider__slide number-slide1"
+                >
+                  <ReviewCard></ReviewCard>
+                </Paper>
+                <Paper
+                  sx={{ boxShadow: 2 }}
+                  className="keen-slider__slide number-slide1"
+                >
+                  <ReviewCard></ReviewCard>
+                </Paper>
+                <Paper
+                  sx={{ boxShadow: 2 }}
+                  className="keen-slider__slide number-slide1"
+                >
+                  <ReviewCard></ReviewCard>
+                </Paper>
+              </div>
+            </Box>
           </Box>
         </Paper>
       </Container>

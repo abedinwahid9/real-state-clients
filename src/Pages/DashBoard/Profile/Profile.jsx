@@ -1,79 +1,71 @@
+import {
+  Container,
+  Grid,
+  Paper,
+  Avatar,
+  Typography,
+  Button,
+} from "@mui/material";
+
+const profileStyle = {
+  padding: "20px",
+  textAlign: "center",
+};
+
+const containerStyle = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+};
+
+const avatarStyle = {
+  width: "150px",
+  height: "150px",
+};
+
+const roleStyle = {
+  marginTop: "10px",
+  color: "#666",
+};
+
+const userName = "wahid";
+const userImage = "https://i.ibb.co/K9wdZ1V/pexels-amir-esrafili-6274712.jpg";
+const role = "wahid";
+
+// { userName, userImage, role }
+
 const Profile = () => {
-  const profileContainerStyle = {
-    display: "flex",
-    padding: "4rem 2rem",
-    marginBottom: "2rem",
-    marginLeft: "2rem",
-  };
-
-  const avatarContainerStyle = {
-    textAlign: "center",
-  };
-
-  const avatarStyle = {
-    maxWidth: "100%",
-    height: "auto",
-  };
-
-  const editButtonStyle = {
-    fontWeight: "bold",
-  };
-
-  const infoContainerStyle = {
-    padding: "3px 0",
-    marginLeft: "2rem",
-  };
-
-  const labelStyle = {
-    fontWeight: "bold",
-  };
-
-  const infoItemStyle = {
-    marginBottom: "0.5rem",
-  };
-
   return (
-    <div style={profileContainerStyle}>
-      <div style={avatarContainerStyle}>
-        <img
-          src="/static/media/profileImage.934e5b10.png"
-          alt="avatar"
-          style={avatarStyle}
-          className="img-fluid profile-photo"
-        />
-        <div style={{ marginTop: "1.5rem" }}>
-          <button style={editButtonStyle} className="btn edit-photo-button">
+    <Container style={profileStyle}>
+      <Paper elevation={3} style={{ padding: "20px" }}>
+        <Container>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <div style={containerStyle}>
+                <Avatar src={userImage} alt={userName} style={avatarStyle} />
+                <Typography variant="h4" style={{ marginTop: "10px" }}>
+                  Name: {userName}
+                </Typography>
+                {role && (
+                  <Typography variant="subtitle1" style={roleStyle}>
+                    Role: {role}
+                  </Typography>
+                )}
+              </div>
+            </Grid>
+          </Grid>
+        </Container>
+
+        {/* Additional information section */}
+        {/* Add your additional information components here */}
+
+        <div style={{ marginTop: "20px" }}>
+          <Button variant="contained" color="primary">
             Edit Profile
-          </button>
+          </Button>
         </div>
-      </div>
-      <div style={infoContainerStyle}>
-        <div style={infoItemStyle}>
-          <label style={labelStyle} htmlFor="FullName">
-            Student ID:
-          </label>
-          <p>WEB8-1270</p>
-        </div>
-        <div style={infoItemStyle}>
-          <label style={labelStyle} htmlFor="FullName">
-            Full name
-          </label>
-          <p>abedin wahid</p>
-        </div>
-        <div style={infoItemStyle}>
-          <label style={labelStyle} htmlFor="email">
-            Email Address
-          </label>
-          <p>abedinwahid9@gmail.com</p>
-        </div>
-        <div style={infoItemStyle}>
-          <label style={labelStyle} htmlFor="phone">
-            Phone
-          </label>
-          <p>01716893200</p>
-        </div>
-      </div>
-    </div>
+      </Paper>
+    </Container>
   );
 };
 

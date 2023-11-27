@@ -7,6 +7,7 @@ import Signup from "../Pages/Signup/Signup";
 import DashBoard from "../Layout/DashBoard";
 import Profile from "../Pages/DashBoard/Profile/Profile";
 import PropertiesDetails from "../Pages/PropertiesDetails/PropertiesDetails";
+import ManagePropertise from "../Pages/DashBoard/ManagePropertise/ManagePropertise";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/profile",
         element: <Profile></Profile>,
+      },
+      {
+        path: "/dashboard/manageproperties",
+        element: <ManagePropertise></ManagePropertise>,
       },
     ],
   },
