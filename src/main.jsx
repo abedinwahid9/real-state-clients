@@ -9,6 +9,7 @@ const queryClient = new QueryClient();
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Routes/Routes.jsx";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import AuthContext from "./AuthProvider/AuthContext.jsx";
 
 export const themeContext = createTheme({
   palette: {
@@ -30,9 +31,11 @@ export const themeContext = createTheme({
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={themeContext}>
-        <RouterProvider router={router} />
-      </ThemeProvider>
+      <AuthContext>
+        <ThemeProvider theme={themeContext}>
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </AuthContext>
     </QueryClientProvider>
   </React.StrictMode>
 );

@@ -12,6 +12,7 @@ import AddProperty from "../Pages/DashBoard/Agent/AddProperty.jsx/AddProperty";
 import MyPropertise from "../Pages/DashBoard/Agent/MyPropertise/MyPropertise";
 import MySoldPropertise from "../Pages/DashBoard/Agent/MySoldPropertise/MySoldPropertise";
 import RequestPropertise from "../Pages/DashBoard/Agent/RequestPropertise/RequestPropertise";
+import UpdatePropertise from "../Pages/DashBoard/Agent/UpdatePropertise/UpdatePropertise";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/addproperty",
         element: <AddProperty></AddProperty>,
+      },
+      {
+        path: "/dashboard/update/:id",
+        element: <UpdatePropertise></UpdatePropertise>,
       },
       {
         path: "/dashboard/myaddedproperties",

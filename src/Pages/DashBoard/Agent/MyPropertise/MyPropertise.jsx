@@ -12,33 +12,44 @@ import SectionTitle from "../../../../Component/SectionTitle/SectionTitle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Box } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../../../hooks/useAxiosPublic/useAxiosPublic";
+import CircularProgress from "@mui/material/CircularProgress";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const columns = [
-  { id: "img", label: "Property image", minWidth: 170 },
-  { id: "title", label: "Property Title", minWidth: 170 },
-  { id: "location", label: "Property Location", minWidth: 170 },
+  { id: "imgUrl", label: "Property image", minWidth: 170 },
+  { id: "propertyTitle", label: "Property Title", minWidth: 170 },
+  { id: "propertyLocation", label: "Property Location", minWidth: 170 },
   { id: "agentName", label: "Agent Name", minWidth: 170 },
   { id: "agentEmail", label: "Agent Email", minWidth: 170 },
-  { id: "status", label: " status", minWidth: 170 },
-  { id: "priceRange", label: "Price Range", minWidth: 170 },
+  { id: "status", label: "Status", minWidth: 170 },
+  { id: "minPrice", label: "Min Price ", minWidth: 170 },
+  { id: "maxPrice", label: "Max Price ", minWidth: 170 },
   { id: "actions", label: "Actions", minWidth: 170 },
 ];
-
-const createData = (
-  img,
-  title,
-  location,
-  agentName,
-  agentEmail,
-  status,
-  priceRange
-) => {
-  return { img, title, location, agentName, agentEmail, status, priceRange };
-};
 
 const MyPropertise = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const axiosPublic = useAxiosPublic();
+
+  // const agentEmail = "michael.brown@example.com";
+  const agentEmail = "admin@gmail.com";
+
+  const {
+    data: propertise = [],
+    isLoading: loading,
+    isFetching,
+    refetch,
+  } = useQuery({
+    queryKey: ["myaddedproperties", agentEmail],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/myaddedproperties/${agentEmail}`);
+      return res.data;
+    },
+  });
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -49,111 +60,42 @@ const MyPropertise = () => {
     setPage(0);
   };
 
-  const rows = [
-    createData(
-      "https://i.ibb.co/BqwGdbS/pngegg-1-1.png",
-      "Luxury Apartment",
-      "Downtown",
-      "John Doe",
-      "john@example.com",
-      "$500,000"
-    ),
-    createData(
-      "Luxury Apartment",
-      "Downtown",
-      "John Doe",
-      "john@example.com",
-      "$500,000"
-    ),
-    createData(
-      "Luxury Apartment",
-      "Downtown",
-      "John Doe",
-      "john@example.com",
-      "$500,000"
-    ),
-    createData(
-      "Luxury Apartment",
-      "Downtown",
-      "John Doe",
-      "john@example.com",
-      "$500,000"
-    ),
-    createData(
-      "Luxury Apartment",
-      "Downtown",
-      "John Doe",
-      "john@example.com",
-      "$500,000"
-    ),
-    createData(
-      "Luxury Apartment",
-      "Downtown",
-      "John Doe",
-      "john@example.com",
-      "$500,000"
-    ),
-    createData(
-      "Luxury Apartment",
-      "Downtown",
-      "John Doe",
-      "john@example.com",
-      "$500,000"
-    ),
-    createData(
-      "Luxury Apartment",
-      "Downtown",
-      "John Doe",
-      "john@example.com",
-      "$500,000"
-    ),
-    createData(
-      "Luxury Apartment",
-      "Downtown",
-      "John Doe",
-      "john@example.com",
-      "$500,000"
-    ),
-    createData(
-      "Luxury Apartment",
-      "Downtown",
-      "John Doe",
-      "john@example.com",
-      "$500,000"
-    ),
-    createData(
-      "Luxury Apartment",
-      "Downtown",
-      "John Doe",
-      "john@example.com",
-      "$500,000"
-    ),
-    createData(
-      "Luxury Apartment",
-      "Downtown",
-      "John Doe",
-      "john@example.com",
-      "$500,000"
-    ),
-    createData(
-      "Luxury Apartment",
-      "Downtown",
-      "John Doe",
-      "john@example.com",
-      "$500,000"
-    ),
-    createData(
-      "Luxury Apartment",
-      "Downtown",
-      "John Doe",
-      "john@example.com",
-      "$500,000"
-    ),
-  ];
+  const handlePropertiseDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPublic.delete(`/propertise/${id}`).then((res) => {
+          if (res.data.acknowledged) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
+  };
+
+  if (loading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <Paper sx={{ width: "100%" }}>
-      <SectionTitle title="My Propertise"></SectionTitle>
+      <SectionTitle title="My Properties"></SectionTitle>
       <TableContainer>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -166,54 +108,63 @@ const MyPropertise = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => (
-                <TableRow key={row.title} hover role="checkbox" tabIndex={-1}>
-                  {columns.map((column) => (
-                    <TableCell key={column.id} align={column.align}>
-                      {column.id === "img" ? (
-                        <img
-                          src={row[column.id]}
-                          alt={row.title}
-                          style={{
-                            width: "80px",
-                            height: "80px",
-                            borderRadius: "50%",
-                          }}
-                        />
-                      ) : column.id === "actions" ? (
-                        <Box display="flex">
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            size="small"
-                            sx={{ mr: 2 }}
-                          >
-                            <EditIcon />
-                          </Button>
-                          <Button
-                            variant="contained"
-                            color="Third"
-                            size="small"
-                          >
-                            <DeleteIcon />
-                          </Button>
-                        </Box>
-                      ) : (
-                        row[column.id]
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
+            {isFetching ? (
+              <TableRow>
+                <TableCell colSpan={columns.length}>Loading...</TableCell>
+              </TableRow>
+            ) : (
+              propertise
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => (
+                  <TableRow key={row._id} hover role="checkbox" tabIndex={-1}>
+                    {columns.map((column) => (
+                      <TableCell key={column.id} align={column.align}>
+                        {column.id === "imgUrl" ? (
+                          <img
+                            src={row[column.id]}
+                            alt={row.title}
+                            style={{
+                              width: "80px",
+                              height: "80px",
+                              borderRadius: "50%",
+                            }}
+                          />
+                        ) : column.id === "actions" ? (
+                          <Box display="flex">
+                            <Link to={`/dashboard/update/${row._id}`}>
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                size="small"
+                                sx={{ mr: 2 }}
+                              >
+                                <EditIcon />
+                              </Button>
+                            </Link>
+                            <Button
+                              onClick={() => handlePropertiseDelete(row._id)}
+                              variant="contained"
+                              color="Third"
+                              size="small"
+                            >
+                              <DeleteIcon />
+                            </Button>
+                          </Box>
+                        ) : (
+                          row[column.id]
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 25, 50, { value: -1, label: "All" }]}
         component="div"
-        count={rows.length}
+        count={propertise.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

@@ -12,24 +12,73 @@ import Typography from "@mui/material/Typography";
 import { useTheme } from "@emotion/react";
 import { themeContext } from "../../main";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IconButton, InputAdornment } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { AuthProvider } from "../../AuthProvider/AuthContext";
+import { updateProfile } from "firebase/auth";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const theme = useTheme(themeContext);
+  const { register, reset, handleSubmit } = useForm();
+  const [showPassword, setShowPassword] = useState(false);
+  const Auth = useContext(AuthProvider);
+  const navigate = useNavigate();
+  const { createUser, loading, googleLogin } = Auth;
+  const [passwordError, setPasswordError] = useState("");
 
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
+  const isPasswordValid = (password) => {
+    if (password.length < 6) return false;
+    if (!/[A-Z]/.test(password)) return false;
+    if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) return false;
+    return true;
   };
 
-  const [showPassword, setShowPassword] = useState(false);
+  const onSubmit = (data) => {
+    const { email, password, name, imgurl } = data;
+
+    if (!isPasswordValid(password)) {
+      setPasswordError(
+        "Password must be at least 6 characters long and contain at least one capital letter with no special characters."
+      );
+      return;
+    }
+
+    createUser(email, password)
+      .then((result) => {
+        reset();
+        updateProfile(result.user, {
+          displayName: name,
+          photoURL: imgurl,
+        })
+          .then(() => {
+            console.log("Display name updated successfully");
+          })
+          .catch((error) => {
+            // Handle errors
+            console.error("Error updating display name", error);
+          });
+        navigate("/");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
+
+  if (loading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <Grid mt={4} container component="main">
@@ -122,6 +171,9 @@ const Signup = () => {
                   ),
                 }}
               />
+              {isPasswordValid && (
+                <Typography color="red">{passwordError}</Typography>
+              )}
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 required

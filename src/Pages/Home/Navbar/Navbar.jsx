@@ -10,9 +10,11 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-
-import { useState } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthProvider } from "../../../AuthProvider/AuthContext";
+import { Divider } from "@mui/material";
 
 const pages = [
   {
@@ -32,6 +34,10 @@ const pages = [
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const { user, loading, signOutUser } = useContext(AuthProvider);
+
+  const isAbsoluteUrl = (url) => /^[a-z][a-z0-9+.-]*:/.test(url);
+  const checkProfileImg = isAbsoluteUrl(user?.photoURL);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -46,6 +52,12 @@ function Navbar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    signOutUser()
+      .then((result) => console.log("logout", result))
+      .catch((err) => console.error(err));
   };
 
   const LogoAndName = ({ styleLogo, styleName }) => (
@@ -69,6 +81,14 @@ function Navbar() {
       </Typography>
     </>
   );
+
+  if (loading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <AppBar position="static">
@@ -171,41 +191,61 @@ function Navbar() {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Link
-                  to="/dashboard/profile"
-                  style={{ textDecoration: "none ", color: "#000" }}
-                >
-                  <Typography textAlign="center">Dashboard</Typography>
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Logout</Typography>
-              </MenuItem>
-            </Menu>
-          </Box>
+          {user && (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    alt={user?.displayName}
+                    src={
+                      checkProfileImg
+                        ? user.photoURL
+                        : "https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0="
+                    }
+                  />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem>
+                  <Typography
+                    variant="h6"
+                    fontWeight={700}
+                    color="Primary"
+                    textAlign="center"
+                  >
+                    {user?.displayName}
+                  </Typography>
+                </MenuItem>
+                <Divider></Divider>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Link
+                    to="/dashboard/profile"
+                    style={{ textDecoration: "none ", color: "#000" }}
+                  >
+                    <Typography textAlign="center">Dashboard</Typography>
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleLogout}>
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

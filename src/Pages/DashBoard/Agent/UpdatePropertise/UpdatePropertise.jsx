@@ -1,69 +1,74 @@
 import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useForm } from "react-hook-form";
 import { styled } from "@mui/material/styles";
 import AddHomeIcon from "@mui/icons-material/AddHome";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic/useAxiosPublic";
 import Swal from "sweetalert2";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import CircularProgress from "@mui/material/CircularProgress";
 
-const AddProperty = () => {
-  const VisuallyHiddenInput = styled("input")({
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)",
-    height: 1,
-    overflow: "hidden",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    whiteSpace: "nowrap",
-    width: 1,
-  });
-
+const UpdatePropertise = () => {
   const { register, reset, handleSubmit } = useForm();
+
+  const params = useParams();
+
   const axiosPublic = useAxiosPublic();
 
-  const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
-  const imgHosingApi = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+  const {
+    data: propertise = [],
+    isPending: loading,
+    refetch,
+  } = useQuery({
+    queryKey: ["propertiseItem"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/propertise/${params.id}`);
+      return res.data;
+    },
+  });
 
-  const userImg = "";
-  const status = "pending";
+  console.log(propertise);
+
+  const {
+    agentName,
+    agentEmail,
+    bathroom,
+    bed,
+    maxPrice,
+    minPrice,
+    propertyLocation,
+    propertyTitle,
+    squareFeet,
+    propertiseDescription,
+  } = propertise;
 
   const onSubmit = async (data) => {
-    const imageFile = { image: data.imgUrl[0] };
-    const res = await axiosPublic.post(imgHosingApi, imageFile, {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    });
+    const updatePropertise = {
+      ...data,
+      maxPrice: parseFloat(data.maxPrice),
+      minPrice: parseFloat(data.minPrice),
+      bed: parseFloat(data.bed),
+      Bathroom: parseFloat(data.Bathroom),
+      squrefeet: parseFloat(data.squrefeet),
+    };
 
-    if (res.data.success) {
-      const addPropertise = {
-        ...data,
-        status,
-        maxPrice: parseFloat(data.maxPrice),
-        minPrice: parseFloat(data.minPrice),
-        bed: parseFloat(data.bed),
-        Bathroom: parseFloat(data.Bathroom),
-        squrefeet: parseFloat(data.squrefeet),
-        imgUrl: res.data.data.display_url,
-      };
-
-      const addPropertiseRes = await axiosPublic.post(
-        "/addpropertise",
-        addPropertise
-      );
-      if (addPropertiseRes.data.insertedId) {
-        reset();
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: `${data.propertyTitle} is added to the menu.`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    }
+    axiosPublic
+      .put(`/update/${params.id}`, { ...updatePropertise })
+      .then((data) => {
+        if (data.data.acknowledged) {
+          refetch();
+          Swal.fire("food update success ");
+        }
+      });
   };
+
+  if (loading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <Box mt={2}>
@@ -73,8 +78,7 @@ const AddProperty = () => {
             <Paper>
               <Box p={2}>
                 <Typography variant="h5">
-                  {" "}
-                  <AddHomeIcon /> Add New Product
+                  <AddHomeIcon /> Update Product
                 </Typography>
               </Box>
             </Paper>
@@ -87,6 +91,7 @@ const AddProperty = () => {
                   <Grid item xs={12}>
                     <TextField
                       fullWidth
+                      defaultValue={propertyTitle}
                       required
                       label="Property title"
                       variant="outlined"
@@ -98,6 +103,7 @@ const AddProperty = () => {
                   <Grid item xs={12}>
                     <TextField
                       fullWidth
+                      defaultValue={propertyLocation}
                       required
                       label="Property location"
                       variant="outlined"
@@ -110,7 +116,7 @@ const AddProperty = () => {
                     <TextField
                       fullWidth
                       label="Agent Name"
-                      defaultValue="admin"
+                      defaultValue={agentName}
                       inputProps={{ readOnly: true }}
                       variant="outlined"
                       {...register("agentName")}
@@ -121,7 +127,7 @@ const AddProperty = () => {
                     <TextField
                       fullWidth
                       label="Agent Email"
-                      defaultValue="admin@gmail.com"
+                      defaultValue={agentEmail}
                       inputProps={{ readOnly: true }}
                       {...register("agentEmail")}
                       variant="outlined"
@@ -134,6 +140,7 @@ const AddProperty = () => {
                       {...register("maxPrice")}
                       fullWidth
                       required
+                      defaultValue={maxPrice}
                       type="number"
                       InputProps={{ inputProps: { min: 1 } }}
                       label="Max Price"
@@ -146,6 +153,7 @@ const AddProperty = () => {
                       {...register("minPrice")}
                       fullWidth
                       required
+                      defaultValue={minPrice}
                       type="number"
                       InputProps={{ inputProps: { min: 1 } }}
                       label="Min Price"
@@ -158,6 +166,7 @@ const AddProperty = () => {
                       {...register("bed")}
                       fullWidth
                       required
+                      defaultValue={bed}
                       type="number"
                       InputProps={{ inputProps: { min: 1 } }}
                       label="Bed"
@@ -170,6 +179,7 @@ const AddProperty = () => {
                       {...register("Bathroom")}
                       fullWidth
                       required
+                      defaultValue={bathroom}
                       type="number"
                       InputProps={{ inputProps: { min: 1 } }}
                       label="Bathroom"
@@ -181,6 +191,7 @@ const AddProperty = () => {
                       {...register("squrefeet")}
                       fullWidth
                       required
+                      defaultValue={squareFeet}
                       type="number"
                       InputProps={{ inputProps: { min: 1 } }}
                       label="Squre feet"
@@ -194,6 +205,7 @@ const AddProperty = () => {
                       multiline
                       minRows={3}
                       fullWidth
+                      defaultValue={propertiseDescription}
                       required
                       label="Propertise Description"
                       {...register("propertiseDescription")}
@@ -201,45 +213,6 @@ const AddProperty = () => {
                     />
                   </Grid>
                 </Grid>
-              </Box>
-            </Paper>
-          </Grid>
-
-          {/* Image Upload */}
-          <Grid item xs={12}>
-            <Paper
-              component="div"
-              onDragOver={(event) => event.preventDefault()}
-              className="MuiBox-root dropzone"
-              role="button"
-              tabIndex="0"
-            >
-              <Box
-                p={4}
-                display="flex"
-                flexDirection="column"
-                alignItems="center"
-              >
-                <CloudUploadIcon fontSize="large" color="Third" />
-                <Typography variant="body1" className="MuiBox-root">
-                  Drop your images here or
-                </Typography>
-                <Typography variant="h6" className="MuiBox-root">
-                  Select click to browse
-                </Typography>
-                <Button
-                  component="label"
-                  sx={{ color: "#fff" }}
-                  variant="contained"
-                  color="Third"
-                >
-                  Upload
-                  <VisuallyHiddenInput
-                    required
-                    {...register("imgUrl")}
-                    type="file"
-                  />
-                </Button>
               </Box>
             </Paper>
           </Grid>
@@ -254,7 +227,7 @@ const AddProperty = () => {
                 variant="contained"
                 color="Third"
               >
-                Create New Product
+                Update Product
               </Button>
             </Box>
           </Grid>
@@ -264,4 +237,4 @@ const AddProperty = () => {
   );
 };
 
-export default AddProperty;
+export default UpdatePropertise;

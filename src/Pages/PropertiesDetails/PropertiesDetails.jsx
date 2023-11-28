@@ -32,6 +32,12 @@ const PropertiesDetails = () => {
     },
   });
 
+  const handleWishlist = () => {
+    const review = { ...propertise, id: propertise._id };
+
+    console.log(review);
+  };
+
   const {
     agentName,
     bathroom,
@@ -92,6 +98,7 @@ const PropertiesDetails = () => {
             </Typography>
             <Box>
               <Button
+                onClick={handleWishlist}
                 sx={{ mr: 2, bgcolor: theme.palette.Third.main }}
                 variant="contained"
               >

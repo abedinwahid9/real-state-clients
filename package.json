@@ -19,7 +19,7 @@
     "@tanstack/react-table": "^8.10.7",
     "aos": "^2.3.4",
     "axios": "^1.6.2",
-    "firebase": "^10.4.0",
+    "firebase": "^10.7.0",
     "keen-slider": "^6.8.6",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
