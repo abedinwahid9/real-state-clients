@@ -15,6 +15,7 @@
     "@mui/icons-material": "^5.14.18",
     "@mui/material": "^5.14.18",
     "@react-google-maps/api": "^2.19.2",
+    "@tanstack/react-query": "^5.8.9",
     "@tanstack/react-table": "^8.10.7",
     "aos": "^2.3.4",
     "axios": "^1.6.2",

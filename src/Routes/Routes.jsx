@@ -8,6 +8,10 @@ import DashBoard from "../Layout/DashBoard";
 import Profile from "../Pages/DashBoard/Profile/Profile";
 import PropertiesDetails from "../Pages/PropertiesDetails/PropertiesDetails";
 import ManagePropertise from "../Pages/DashBoard/ManagePropertise/ManagePropertise";
+import AddProperty from "../Pages/DashBoard/Agent/AddProperty.jsx/AddProperty";
+import MyPropertise from "../Pages/DashBoard/Agent/MyPropertise/MyPropertise";
+import MySoldPropertise from "../Pages/DashBoard/Agent/MySoldPropertise/MySoldPropertise";
+import RequestPropertise from "../Pages/DashBoard/Agent/RequestPropertise/RequestPropertise";
 
 export const router = createBrowserRouter([
   {
@@ -31,7 +35,7 @@ export const router = createBrowserRouter([
         element: <Signup></Signup>,
       },
       {
-        path: "/propertiesdetails",
+        path: "/propertiesdetails/:id",
         element: <PropertiesDetails></PropertiesDetails>,
       },
     ],
@@ -43,6 +47,22 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/profile",
         element: <Profile></Profile>,
+      },
+      {
+        path: "/dashboard/addproperty",
+        element: <AddProperty></AddProperty>,
+      },
+      {
+        path: "/dashboard/myaddedproperties",
+        element: <MyPropertise></MyPropertise>,
+      },
+      {
+        path: "/dashboard/mysoldproperties",
+        element: <MySoldPropertise></MySoldPropertise>,
+      },
+      {
+        path: "/dashboard/requestedproperties",
+        element: <RequestPropertise></RequestPropertise>,
       },
       {
         path: "/dashboard/manageproperties",

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -9,16 +10,31 @@ import VerifiedIcon from "@mui/icons-material/Verified";
 import CustomButton from "../../../ShareComponent/Button/CustomButton";
 import { Link } from "react-router-dom";
 
-const PropertiesCard = () => {
+const PropertiesCard = ({ propertiseItem }) => {
   const theme = useTheme(themeContext);
+
+  const {
+    _id,
+    agentName,
+    bathroom,
+    bed,
+    imgUrl,
+    maxPrice,
+    minPrice,
+    propertyLocation,
+    propertyTitle,
+    squareFeet,
+  } = propertiseItem;
+
+  const agentImg = "";
 
   return (
     <Card>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="350"
-          image="https://i.ibb.co/Y4gwSqy/2150761166-removebg-preview.png"
+          height="400"
+          image={imgUrl}
           alt="green iguana"
         />
         <CardContent>
@@ -32,12 +48,17 @@ const PropertiesCard = () => {
                 display: "flex",
                 alignItems: "center",
                 gap: 2,
+                width: "100%",
                 textAlign: "left",
               }}
             >
               <Avatar
                 alt="Cindy Baker"
-                src="https://i.ibb.co/K9wdZ1V/pexels-amir-esrafili-6274712.jpg"
+                src={
+                  agentImg
+                    ? agentImg
+                    : "https://i.ibb.co/Y4gwSqy/2150761166-removebg-preview.png"
+                }
               />
               <Typography
                 sx={{ margin: 0, fontWeight: 600 }}
@@ -45,7 +66,7 @@ const PropertiesCard = () => {
                 variant="h6"
                 component="div"
               >
-                Lizard wahid
+                {agentName}
               </Typography>
             </Box>
             <Box
@@ -64,32 +85,36 @@ const PropertiesCard = () => {
                 src="https://preview.colorlib.com/theme/realestate2/img/svg_icon/location.svg"
               />{" "}
               <Typography
-                sx={{ margin: 0, fontWeight: 400 }}
+                sx={{ margin: 0, fontSize: "10px" }}
                 gutterBottom
                 component="div"
               >
-                Lizard
+                {propertyLocation}
               </Typography>
             </Box>
           </Stack>
 
-          <Box display="flex" justifyContent="space-between" mt={1}>
+          <Box
+            height="80px"
+            display="flex"
+            justifyContent="space-between"
+            mt={1}
+          >
             <Typography
               variant="h6"
               sx={{ fontWeight: 600, wordSpacing: 2 }}
               color={`${theme.palette.primary.main}`}
             >
-              Asian Tour 4 sdhskh
+              {propertyTitle}
             </Typography>
             <Typography sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <VerifiedIcon /> Verified
             </Typography>
           </Box>
-          <Box display="flex" mt={1}>
+          <Box display="flex" mt={2}>
             <Typography
-              variant="h6"
               mr={2}
-              sx={{ fontWeight: 600, wordSpacing: 2 }}
+              sx={{ fontWeight: 600, fontSize: "16px", wordSpacing: 2 }}
               color={`${theme.palette.primary.main}`}
             >
               Range:
@@ -103,7 +128,7 @@ const PropertiesCard = () => {
                 gap: 1,
               }}
             >
-              $400 - $500
+              ${minPrice} - ${maxPrice}
             </Typography>
           </Box>
           <Box color={theme.palette.primary.main} display="flex" gap={3} mt={1}>
@@ -112,25 +137,25 @@ const PropertiesCard = () => {
                 src="https://preview.colorlib.com/theme/realestate2/img/svg_icon/bed.svg"
                 alt=""
               />
-              <Typography>4</Typography>
+              <Typography>{bed}</Typography>
             </Box>
             <Box sx={{ display: "flex", gap: 1 }}>
               <img
                 src="https://preview.colorlib.com/theme/realestate2/img/svg_icon/bath.svg"
                 alt=""
               />
-              <Typography>4</Typography>
+              <Typography>{bathroom}</Typography>
             </Box>
             <Box sx={{ display: "flex", gap: 1 }}>
               <img
                 src="https://preview.colorlib.com/theme/realestate2/img/svg_icon/square.svg"
                 alt=""
               />
-              <Typography>4 Sqft</Typography>
+              <Typography>{squareFeet} Sqft</Typography>
             </Box>
           </Box>
         </CardContent>{" "}
-        <Link to="/propertiesdetails">
+        <Link to={`/propertiesdetails/${_id}`}>
           <CustomButton color={theme.palette.Third.main} title="Details" />
         </Link>
       </CardActionArea>

@@ -13,9 +13,37 @@ import { themeContext } from "../../main";
 import ReviewCard from "../../Component/Card/ReviewCard/ReviewCard";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
+import { useParams } from "react-router-dom";
+import useAxiosPublic from "../../hooks/useAxiosPublic/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const PropertiesDetails = () => {
   const theme = useTheme(themeContext);
+
+  const params = useParams();
+  const axiosPublic = useAxiosPublic();
+
+  const { data: propertise = [], isPending: loading } = useQuery({
+    queryKey: ["propertiseItem"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/propertise/${params.id}`);
+      return res.data;
+    },
+  });
+
+  const {
+    agentName,
+    bathroom,
+    bed,
+    imgUrl,
+    maxPrice,
+    minPrice,
+    propertyLocation,
+    propertyTitle,
+    squareFeet,
+    propertiseDescription,
+  } = propertise;
 
   const [sliderRef] = useKeenSlider({
     loop: true,
@@ -37,6 +65,14 @@ const PropertiesDetails = () => {
     },
   });
 
+  if (loading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
     <div>
       <Container sx={{ my: 5 }} maxWidth="xl">
@@ -45,14 +81,14 @@ const PropertiesDetails = () => {
             component="img"
             height="550"
             sx={{ objectFit: "fill" }}
-            image="https://cdn.pixabay.com/photo/2016/11/18/17/46/house-1836070_1280.jpg"
-            alt="Paella dish"
+            image={imgUrl}
+            alt={propertyTitle}
           />
         </Paper>{" "}
         <Paper elevation={24} sx={{ mt: 4, p: 4, borderRadius: 5 }}>
           <Box display="flex" justifyContent="space-between">
             <Typography variant="h4" color="initial">
-              Propertise Name
+              {propertyTitle}
             </Typography>
             <Box>
               <Button
@@ -88,11 +124,13 @@ const PropertiesDetails = () => {
               variant="h6"
               component="div"
             >
-              Lizard wahid
+              {agentName}
             </Typography>
           </Box>
           <Box mt={2} display="flex" justifyContent="space-between">
-            <Typography mt>Price Range: $400 - $500</Typography>
+            <Typography mt>
+              Price Range: ${minPrice} - ${maxPrice}
+            </Typography>
 
             <Box
               color={theme.palette.primary.main}
@@ -105,34 +143,34 @@ const PropertiesDetails = () => {
                   src="https://preview.colorlib.com/theme/realestate2/img/svg_icon/bed.svg"
                   alt=""
                 />
-                <Typography>4</Typography>
+                <Typography>{bed}</Typography>
               </Box>
               <Box sx={{ display: "flex", gap: 1 }}>
                 <img
                   src="https://preview.colorlib.com/theme/realestate2/img/svg_icon/bath.svg"
                   alt=""
                 />
-                <Typography>4</Typography>
+                <Typography>{bathroom}</Typography>
               </Box>
               <Box sx={{ display: "flex", gap: 1 }}>
                 <img
                   src="https://preview.colorlib.com/theme/realestate2/img/svg_icon/square.svg"
                   alt=""
                 />
-                <Typography>4 Sqft</Typography>
+                <Typography>{squareFeet} Sqft</Typography>
               </Box>
             </Box>
           </Box>
           <Box mt={2}>
-            <Typography variant="h5" color="initial">
+            <Typography fontWeight={700}>
+              Location: {propertyLocation}
+            </Typography>
+            <Typography mt={2} variant="h5" color="initial">
               Details
             </Typography>
             <Divider></Divider>
             <Typography mt={2} variant="body1" color={theme.palette.Third.main}>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quam
-              illum numquam, iste aliquam id ad facere nesciunt mollitia
-              repudiandae cupiditate ratione officia, voluptatum, cum a
-              exercitationem architecto explicabo consectetur iusto?
+              {propertiseDescription}
             </Typography>
           </Box>
         </Paper>
