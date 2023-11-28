@@ -20,6 +20,7 @@ import { AuthProvider } from "../../AuthProvider/AuthContext";
 import { updateProfile } from "firebase/auth";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
+import SocialLogin from "../../Component/SocialLogin/SocialLogin";
 
 const Signup = () => {
   const theme = useTheme(themeContext);
@@ -129,7 +130,6 @@ const Signup = () => {
               />
               <TextField
                 margin="normal"
-                required
                 fullWidth
                 {...register("imgurl")}
                 id="imgurl"
@@ -197,6 +197,7 @@ const Signup = () => {
               </Grid>
             </form>
           </Box>
+          <SocialLogin></SocialLogin>
         </Box>
       </Grid>
     </Grid>

@@ -100,8 +100,8 @@ const DashBoard = () => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
-  const admin = false;
-  const agent = true;
+  const admin = true;
+  const agent = false;
   const user = false;
 
   const handleDrawerOpen = () => {

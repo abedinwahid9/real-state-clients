@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Button from "@mui/material/Button";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import SectionTitle from "../../../../Component/SectionTitle/SectionTitle";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -17,6 +17,7 @@ import useAxiosPublic from "../../../../hooks/useAxiosPublic/useAxiosPublic";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { AuthProvider } from "../../../../AuthProvider/AuthContext";
 
 const columns = [
   { id: "imgUrl", label: "Property image", minWidth: 170 },
@@ -34,6 +35,7 @@ const MyPropertise = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const axiosPublic = useAxiosPublic();
+  const { user } = useContext(AuthProvider);
 
   // const agentEmail = "michael.brown@example.com";
   const agentEmail = "admin@gmail.com";
@@ -46,7 +48,7 @@ const MyPropertise = () => {
   } = useQuery({
     queryKey: ["myaddedproperties", agentEmail],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/myaddedproperties/${agentEmail}`);
+      const res = await axiosPublic.get(`/myaddedproperties/${user.email}`);
       return res.data;
     },
   });

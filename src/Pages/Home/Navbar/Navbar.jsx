@@ -16,25 +16,25 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthProvider } from "../../../AuthProvider/AuthContext";
 import { Divider } from "@mui/material";
 
-const pages = [
-  {
-    name: "Home",
-    link: "",
-  },
-  {
-    name: "All Properties",
-    link: "allproperties",
-  },
-  {
-    name: "Login",
-    link: "login",
-  },
-];
-
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const { user, loading, signOutUser } = useContext(AuthProvider);
+
+  const pages = [
+    {
+      name: "Home",
+      link: "",
+    },
+    {
+      name: "All Properties",
+      link: "allproperties",
+    },
+    !user && {
+      name: "Login",
+      link: "login",
+    },
+  ];
 
   const isAbsoluteUrl = (url) => /^[a-z][a-z0-9+.-]*:/.test(url);
   const checkProfileImg = isAbsoluteUrl(user?.photoURL);

@@ -13,6 +13,8 @@ import MyPropertise from "../Pages/DashBoard/Agent/MyPropertise/MyPropertise";
 import MySoldPropertise from "../Pages/DashBoard/Agent/MySoldPropertise/MySoldPropertise";
 import RequestPropertise from "../Pages/DashBoard/Agent/RequestPropertise/RequestPropertise";
 import UpdatePropertise from "../Pages/DashBoard/Agent/UpdatePropertise/UpdatePropertise";
+import PrivateRoute from "../Component/PrivateRoute/PrivateRoute";
+import LoginRoute from "../Component/PrivateRoute/LoginRoute";
 
 export const router = createBrowserRouter([
   {
@@ -29,15 +31,29 @@ export const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <Login></Login>,
+        element: (
+          <LoginRoute>
+            {" "}
+            <Login></Login>
+          </LoginRoute>
+        ),
       },
       {
         path: "/signup",
-        element: <Signup></Signup>,
+        element: (
+          <LoginRoute>
+            {" "}
+            <Signup></Signup>
+          </LoginRoute>
+        ),
       },
       {
         path: "/propertiesdetails/:id",
-        element: <PropertiesDetails></PropertiesDetails>,
+        element: (
+          <PrivateRoute>
+            <PropertiesDetails></PropertiesDetails>
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -47,31 +63,62 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard/profile",
-        element: <Profile></Profile>,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/addproperty",
-        element: <AddProperty></AddProperty>,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <AddProperty></AddProperty>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/update/:id",
-        element: <UpdatePropertise></UpdatePropertise>,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <UpdatePropertise></UpdatePropertise>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/myaddedproperties",
-        element: <MyPropertise></MyPropertise>,
+        element: (
+          <PrivateRoute>
+            <MyPropertise></MyPropertise>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/mysoldproperties",
-        element: <MySoldPropertise></MySoldPropertise>,
+        element: (
+          <PrivateRoute>
+            <MySoldPropertise></MySoldPropertise>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/requestedproperties",
-        element: <RequestPropertise></RequestPropertise>,
+        element: (
+          <PrivateRoute>
+            <RequestPropertise></RequestPropertise>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/manageproperties",
-        element: <ManagePropertise></ManagePropertise>,
+        element: (
+          <PrivateRoute>
+            <ManagePropertise></ManagePropertise>
+          </PrivateRoute>
+        ),
       },
     ],
   },

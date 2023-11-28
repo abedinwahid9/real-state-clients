@@ -19,10 +19,11 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { AuthProvider } from "../../AuthProvider/AuthContext";
 import { useNavigate } from "react-router-dom";
+import SocialLogin from "../../Component/SocialLogin/SocialLogin";
 
 const Login = () => {
   const theme = useTheme(themeContext);
-  const { signInUser, googleLogin } = useContext(AuthProvider);
+  const { signInUser } = useContext(AuthProvider);
   const navigate = useNavigate();
 
   const [errorMessage, setErrorMessage] = useState(null);
@@ -136,7 +137,8 @@ const Login = () => {
                 </Link>
               </Grid>
             </Grid>
-          </Box>
+          </Box>{" "}
+          <SocialLogin></SocialLogin>
         </Box>
       </Grid>
       <Grid
