@@ -13,17 +13,36 @@ import Typography from "@mui/material/Typography";
 import { useTheme } from "@emotion/react";
 import { themeContext } from "../../main";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IconButton, InputAdornment } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { AuthProvider } from "../../AuthProvider/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const theme = useTheme(themeContext);
+  const { signInUser, googleLogin } = useContext(AuthProvider);
+  const navigate = useNavigate();
+
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
     console.log(data);
+
+    const { email, password } = data;
+
+    signInUser(email, password)
+      .then((result) => {
+        console.log(result);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error.message);
+
+        setErrorMessage("Incorrect password. Please try again.");
+      });
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -89,6 +108,9 @@ const Login = () => {
                   ),
                 }}
               />
+              {errorMessage && (
+                <Typography color="red">{errorMessage}</Typography>
+              )}
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
