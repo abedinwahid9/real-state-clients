@@ -15,11 +15,13 @@ import RequestPropertise from "../Pages/DashBoard/Agent/RequestPropertise/Reques
 import UpdatePropertise from "../Pages/DashBoard/Agent/UpdatePropertise/UpdatePropertise";
 import PrivateRoute from "../Component/PrivateRoute/PrivateRoute";
 import LoginRoute from "../Component/PrivateRoute/LoginRoute";
+import Error from "../Pages/Error/Error";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <Error></Error>,
     children: [
       {
         path: "/",
@@ -60,6 +62,7 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashBoard></DashBoard>,
+    errorElement: <Error></Error>,
     children: [
       {
         path: "/dashboard/profile",
