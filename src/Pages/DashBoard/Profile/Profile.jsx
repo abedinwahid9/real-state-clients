@@ -40,7 +40,17 @@ const Profile = () => {
 
   const userName = user.displayName;
   const userEmail = user.email;
-  const role = "wahid";
+
+  let role = "";
+
+  if (userEmail === "admin@gmail.com") {
+    role = "admin";
+  } else if (userEmail === "agent@gmail.com") {
+    role = "agent";
+  } else {
+    role = "user";
+  }
+
   const handleLogout = () => {
     signOutUser()
       .then((result) => console.log("logout", result))

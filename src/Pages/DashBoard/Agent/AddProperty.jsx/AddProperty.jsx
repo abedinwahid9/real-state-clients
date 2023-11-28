@@ -5,8 +5,12 @@ import { styled } from "@mui/material/styles";
 import AddHomeIcon from "@mui/icons-material/AddHome";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic/useAxiosPublic";
 import Swal from "sweetalert2";
+import { useContext } from "react";
+import { AuthProvider } from "../../../../AuthProvider/AuthContext";
 
 const AddProperty = () => {
+  const { user } = useContext(AuthProvider);
+
   const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
     clipPath: "inset(50%)",
@@ -25,7 +29,9 @@ const AddProperty = () => {
   const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
   const imgHosingApi = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
-  const userImg = "";
+  const userImg =
+    user.photoURL ||
+    "https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0=";
   const status = "pending";
 
   const onSubmit = async (data) => {
@@ -39,6 +45,7 @@ const AddProperty = () => {
     if (res.data.success) {
       const addPropertise = {
         ...data,
+        userImg,
         status,
         maxPrice: parseFloat(data.maxPrice),
         minPrice: parseFloat(data.minPrice),
@@ -47,6 +54,8 @@ const AddProperty = () => {
         squrefeet: parseFloat(data.squrefeet),
         imgUrl: res.data.data.display_url,
       };
+
+      console.log(addPropertise);
 
       const addPropertiseRes = await axiosPublic.post(
         "/addpropertise",
@@ -110,7 +119,7 @@ const AddProperty = () => {
                     <TextField
                       fullWidth
                       label="Agent Name"
-                      defaultValue="admin"
+                      defaultValue={user.displayName}
                       inputProps={{ readOnly: true }}
                       variant="outlined"
                       {...register("agentName")}
@@ -121,7 +130,7 @@ const AddProperty = () => {
                     <TextField
                       fullWidth
                       label="Agent Email"
-                      defaultValue="admin@gmail.com"
+                      defaultValue={user.email}
                       inputProps={{ readOnly: true }}
                       {...register("agentEmail")}
                       variant="outlined"

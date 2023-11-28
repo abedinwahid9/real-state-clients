@@ -9,6 +9,8 @@ import { themeContext } from "../../../main";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import CustomButton from "../../../ShareComponent/Button/CustomButton";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthProvider } from "../../../AuthProvider/AuthContext";
 
 const PropertiesCard = ({ propertiseItem }) => {
   const theme = useTheme(themeContext);
@@ -16,6 +18,7 @@ const PropertiesCard = ({ propertiseItem }) => {
   const {
     _id,
     agentName,
+    userImg,
     bathroom,
     bed,
     imgUrl,
@@ -26,7 +29,9 @@ const PropertiesCard = ({ propertiseItem }) => {
     squareFeet,
   } = propertiseItem;
 
-  const agentImg = "";
+  const agentImg =
+    userImg ||
+    "https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0=";
 
   return (
     <Card>

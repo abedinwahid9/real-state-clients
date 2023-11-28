@@ -23,11 +23,12 @@ import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 
 import { NavLink, Outlet, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HouseIcon from "@mui/icons-material/House";
 import { Avatar } from "@mui/material";
+import { AuthProvider } from "../AuthProvider/AuthContext";
 
 const drawerWidth = 240;
 
@@ -100,9 +101,11 @@ const DashBoard = () => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
-  const admin = true;
-  const agent = false;
-  const user = false;
+  const { user } = useContext(AuthProvider);
+
+  const admin = user.email === "admin@gmail.com" ? true : false;
+  const agent = user.email === "agent@gmail.com" ? true : false;
+  const User = admin === false && agent === false;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -216,7 +219,7 @@ const DashBoard = () => {
                   />
                 </ListItemButton>
               </NavLink>
-              {user && (
+              {User && (
                 <>
                   <NavLink
                     style={{ textDecoration: "none", color: "#000" }}
