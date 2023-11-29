@@ -4,8 +4,12 @@ import ReviewCard from "../../../Component/Card/ReviewCard/ReviewCard";
 import { Box } from "@mui/material";
 import SectionTitle from "../../../Component/SectionTitle/SectionTitle";
 import { Parallax } from "react-parallax";
+import useReviews from "../../../hooks/useReviews/UseReviews";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Reviews = () => {
+  const [reviews, loading] = useReviews();
+
   const [sliderRef] = useKeenSlider({
     loop: true,
     mode: "free",
@@ -23,14 +27,16 @@ const Reviews = () => {
           spacing: 20,
         },
       },
-      "(min-width: 1024px)": {
-        slides: {
-          perView: 3,
-          spacing: 20,
-        },
-      },
     },
   });
+
+  if (loading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <>
@@ -44,32 +50,17 @@ const Reviews = () => {
       >
         <Box py={10} mt={5}>
           <div ref={sliderRef} className="keen-slider">
-            <div
-              style={{ overflow: "hidden" }}
-              className="keen-slider__slide number-slide1"
-            >
-              <ReviewCard></ReviewCard>
-            </div>
-            <div className="keen-slider__slide number-slide2">
-              {" "}
-              <ReviewCard></ReviewCard>
-            </div>
-            <div className="keen-slider__slide number-slide3">
-              {" "}
-              <ReviewCard></ReviewCard>
-            </div>
-            <div className="keen-slider__slide number-slide4">
-              {" "}
-              <ReviewCard></ReviewCard>
-            </div>
-            <div className="keen-slider__slide number-slide5">
-              {" "}
-              <ReviewCard></ReviewCard>
-            </div>
-            <div className="keen-slider__slide number-slide6">
-              {" "}
-              <ReviewCard></ReviewCard>
-            </div>
+            {reviews.map((reviewItem) => {
+              return (
+                <div
+                  key={reviewItem.id}
+                  style={{ overflow: "hidden" }}
+                  className="keen-slider__slide number-slide1"
+                >
+                  <ReviewCard reviewItem={reviewItem}></ReviewCard>
+                </div>
+              );
+            })}
           </div>
         </Box>
       </Parallax>

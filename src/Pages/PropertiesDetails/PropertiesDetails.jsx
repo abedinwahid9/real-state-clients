@@ -17,6 +17,7 @@ import { useParams } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import CircularProgress from "@mui/material/CircularProgress";
+import ReviewModal from "../../Component/ReviewModal/ReviewModal";
 
 const PropertiesDetails = () => {
   const theme = useTheme(themeContext);
@@ -39,6 +40,7 @@ const PropertiesDetails = () => {
   };
 
   const {
+    _id,
     agentName,
     bathroom,
     bed,
@@ -96,7 +98,7 @@ const PropertiesDetails = () => {
             <Typography variant="h4" color="initial">
               {propertyTitle}
             </Typography>
-            <Box>
+            <Box display="flex">
               <Button
                 onClick={handleWishlist}
                 sx={{ mr: 2, bgcolor: theme.palette.Third.main }}
@@ -104,12 +106,11 @@ const PropertiesDetails = () => {
               >
                 Add to wishlist
               </Button>
-              <Button
-                sx={{ bgcolor: theme.palette.Third.main }}
-                variant="contained"
-              >
-                Review
-              </Button>
+              <ReviewModal
+                id={_id}
+                propertyTitle={propertyTitle}
+                styles={{ p: 2, bgcolor: theme.palette.Third.main }}
+              ></ReviewModal>
             </Box>
           </Box>
           <Box

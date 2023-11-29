@@ -12,7 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useContext, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthProvider } from "../../../AuthProvider/AuthContext";
 import { Divider } from "@mui/material";
 
@@ -20,6 +20,8 @@ function Navbar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const { user, loading, signOutUser } = useContext(AuthProvider);
+
+  const navigate = useNavigate();
 
   const pages = [
     {
@@ -56,7 +58,10 @@ function Navbar() {
 
   const handleLogout = () => {
     signOutUser()
-      .then((result) => console.log("logout", result))
+      .then((result) => {
+        console.log("logout", result);
+        navigate("/login");
+      })
       .catch((err) => console.error(err));
   };
 
@@ -231,15 +236,15 @@ function Navbar() {
                     {user?.displayName}
                   </Typography>
                 </MenuItem>
-                <Divider></Divider>
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Link
-                    to="/dashboard/profile"
-                    style={{ textDecoration: "none ", color: "#000" }}
-                  >
+                <Divider></Divider>{" "}
+                <Link
+                  to="/dashboard/profile"
+                  style={{ textDecoration: "none ", color: "#000" }}
+                >
+                  <MenuItem onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">Dashboard</Typography>
-                  </Link>
-                </MenuItem>
+                  </MenuItem>
+                </Link>
                 <MenuItem onClick={handleLogout}>
                   <Typography textAlign="center">Logout</Typography>
                 </MenuItem>

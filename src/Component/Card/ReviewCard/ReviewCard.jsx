@@ -3,12 +3,8 @@ import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 
-const ReviewCard = ({
-  reviewerName,
-  reviewerImage,
-  reviewDescription,
-  propertyTitle,
-}) => {
+const ReviewCard = ({ reviewItem }) => {
+  const { review, propertyTitle, reviewerImage, reviewerName } = reviewItem;
   return (
     <Card
       sx={{
@@ -17,8 +13,7 @@ const ReviewCard = ({
       }}
       style={{
         display: "flex",
-        // width: "100%",
-        // height: "100%",
+
         padding: "30px",
         backgroundColor: "rgba(255, 255, 255, 0.450)",
         borderRadius: "8px",
@@ -26,8 +21,8 @@ const ReviewCard = ({
       }}
     >
       <Avatar
-        src={"reviewerImage"}
-        alt={"reviewerName"}
+        src={reviewerImage}
+        alt={reviewerImage}
         style={{
           width: "150px",
           height: "150px",
@@ -35,12 +30,12 @@ const ReviewCard = ({
         }}
       />
       <CardContent style={{ flex: 1, padding: "20px" }}>
-        <Typography variant="h5">{"reviewerName"}</Typography>
+        <Typography variant="h5">{reviewerName}</Typography>
         <Typography variant="body1" paragraph>
-          {"reviewDescription"}
+          {review}
         </Typography>
         <Typography variant="body2" color="textSecondary">
-          <strong>Property:</strong> {"propertyTitle"}
+          <strong>Property:</strong> {propertyTitle}
         </Typography>
       </CardContent>
     </Card>

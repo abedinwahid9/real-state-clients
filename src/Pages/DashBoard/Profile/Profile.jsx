@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useContext } from "react";
 import { AuthProvider } from "../../../AuthProvider/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const profileStyle = {
   padding: "20px",
@@ -33,7 +34,7 @@ const roleStyle = {
 
 const Profile = () => {
   const { user, signOutUser } = useContext(AuthProvider);
-  console.log(user);
+  const navigate = useNavigate();
 
   const isAbsoluteUrl = (url) => /^[a-z][a-z0-9+.-]*:/.test(url);
   const checkProfileImg = isAbsoluteUrl(user?.photoURL);
@@ -53,7 +54,10 @@ const Profile = () => {
 
   const handleLogout = () => {
     signOutUser()
-      .then((result) => console.log("logout", result))
+      .then((result) => {
+        navigate("/login");
+        console.log("logout", result);
+      })
       .catch((err) => console.error(err));
   };
 

@@ -66,7 +66,7 @@ const AddProperty = () => {
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: `${data.propertyTitle} is added to the menu.`,
+          title: `${data.propertyTitle} is added to the propertise.`,
           showConfirmButton: false,
           timer: 1500,
         });
