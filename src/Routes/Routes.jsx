@@ -7,7 +7,7 @@ import Signup from "../Pages/Signup/Signup";
 import DashBoard from "../Layout/DashBoard";
 import Profile from "../Pages/DashBoard/Profile/Profile";
 import PropertiesDetails from "../Pages/PropertiesDetails/PropertiesDetails";
-import ManagePropertise from "../Pages/DashBoard/ManagePropertise/ManagePropertise";
+import ManagePropertise from "../Pages/DashBoard/Admin/ManagePropertise/ManagePropertise";
 import AddProperty from "../Pages/DashBoard/Agent/AddProperty.jsx/AddProperty";
 import MyPropertise from "../Pages/DashBoard/Agent/MyPropertise/MyPropertise";
 import MySoldPropertise from "../Pages/DashBoard/Agent/MySoldPropertise/MySoldPropertise";
@@ -16,6 +16,7 @@ import UpdatePropertise from "../Pages/DashBoard/Agent/UpdatePropertise/UpdatePr
 import PrivateRoute from "../Component/PrivateRoute/PrivateRoute";
 import LoginRoute from "../Component/PrivateRoute/LoginRoute";
 import Error from "../Pages/Error/Error";
+import ReviewsManage from "../Pages/DashBoard/Admin/ReviewsManage/ReviewsManage";
 
 export const router = createBrowserRouter([
   {
@@ -120,6 +121,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ManagePropertise></ManagePropertise>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/managereviews",
+        element: (
+          <PrivateRoute>
+            <ReviewsManage></ReviewsManage>
           </PrivateRoute>
         ),
       },

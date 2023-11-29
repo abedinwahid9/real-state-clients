@@ -8,57 +8,27 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Button from "@mui/material/Button";
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../../hooks/useAxiosPublic/useAxiosPublic";
+
 import CircularProgress from "@mui/material/CircularProgress";
 import { Box } from "@mui/material";
+import SectionTitle from "../../../../Component/SectionTitle/SectionTitle";
+import useReviews from "../../../../hooks/useReviews/UseReviews";
 
 const columns = [
+  { id: "propertyId", label: "Property Id", minWidth: 170 },
   { id: "propertyTitle", label: "Property Title", minWidth: 170 },
-  { id: "propertyLocation", label: "Property Location", minWidth: 170 },
-  { id: "agentName", label: "Agent Name", minWidth: 170 },
-  { id: "agentEmail", label: "Agent Email", minWidth: 170 },
-
-  { id: "minPrice", label: "Min Price ", minWidth: 170 },
-  { id: "maxPrice", label: "Max Price ", minWidth: 170 },
+  { id: "reviewerName", label: "Reviewer Name", minWidth: 170 },
+  { id: "review", label: "Agent Name", minWidth: 170 },
+  { id: "reviewtime", label: "Review Time", minWidth: 170 },
   { id: "actions", label: "Actions", minWidth: 170 },
 ];
 
-const ManagePropertise = () => {
+const ReviewsManage = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const axiosPublic = useAxiosPublic();
+  const [reviews, loading, refetch, isFetching] = useReviews();
 
-  const {
-    data: propertise = [],
-    isLoading: loading,
-    isFetching,
-    refetch,
-  } = useQuery({
-    queryKey: ["manageproperties"],
-    queryFn: async () => {
-      const res = await axiosPublic.get("/allpropertise");
-
-      return res.data;
-    },
-  });
-
-  const handleStatusUpdate = async (id, status) => {
-    let update = "";
-    if (status === "pending") {
-      update = "verify";
-    } else {
-      update = "pending";
-    }
-
-    const updateStatus = {
-      status: update,
-    };
-
-    const res = await axiosPublic.put(`/statusupdate/${id}`, updateStatus);
-    refetch();
-    console.log(res);
-  };
+  console.log(reviews);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -79,6 +49,7 @@ const ManagePropertise = () => {
 
   return (
     <Paper sx={{ width: "100%" }}>
+      <SectionTitle title="All Reviews"></SectionTitle>
       <TableContainer>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -96,7 +67,7 @@ const ManagePropertise = () => {
                 <TableCell colSpan={columns.length}>Loading...</TableCell>
               </TableRow>
             ) : (
-              propertise
+              reviews
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => (
                   <TableRow key={row.title} hover role="checkbox" tabIndex={-1}>
@@ -105,22 +76,11 @@ const ManagePropertise = () => {
                         {column.id === "actions" ? (
                           <Box display="flex">
                             <Button
-                              onClick={() =>
-                                handleStatusUpdate(row._id, row.status)
-                              }
-                              variant="contained"
-                              color="primary"
-                              size="small"
-                              sx={{ mr: 2 }}
-                            >
-                              {row.status === "pending" ? "Pending" : "Verify"}
-                            </Button>
-                            <Button
                               variant="contained"
                               color="Third"
                               size="small"
                             >
-                              Reject
+                              Delete
                             </Button>
                           </Box>
                         ) : (
@@ -137,7 +97,7 @@ const ManagePropertise = () => {
       <TablePagination
         rowsPerPageOptions={[10, 25, 50, { value: -1, label: "All" }]}
         component="div"
-        count={propertise.length}
+        count={reviews.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -148,4 +108,4 @@ const ManagePropertise = () => {
   );
 };
 
-export default ManagePropertise;
+export default ReviewsManage;

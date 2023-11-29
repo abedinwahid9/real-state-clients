@@ -8,6 +8,7 @@ const useReviews = () => {
     data: reviews = [],
     isPending: loading,
     refetch,
+    isFetching,
   } = useQuery({
     queryKey: ["allreviews"],
     queryFn: async () => {
@@ -16,7 +17,7 @@ const useReviews = () => {
     },
   });
 
-  return [reviews, loading, refetch];
+  return [reviews, loading, refetch, isFetching];
 };
 
 export default useReviews;
