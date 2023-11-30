@@ -13,13 +13,15 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { Box } from "@mui/material";
 import SectionTitle from "../../../../Component/SectionTitle/SectionTitle";
 import useReviews from "../../../../hooks/useReviews/UseReviews";
+import useAxiosPublic from "../../../../hooks/useAxiosPublic/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const columns = [
   { id: "propertyId", label: "Property Id", minWidth: 170 },
   { id: "propertyTitle", label: "Property Title", minWidth: 170 },
   { id: "reviewerName", label: "Reviewer Name", minWidth: 170 },
   { id: "review", label: "Agent Name", minWidth: 170 },
-  { id: "reviewtime", label: "Review Time", minWidth: 170 },
+  // { id: "reviewtime", label: "Review Time", minWidth: 170 },
   { id: "actions", label: "Actions", minWidth: 170 },
 ];
 
@@ -27,6 +29,34 @@ const ReviewsManage = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [reviews, loading, refetch, isFetching] = useReviews();
+  const axiosPublic = useAxiosPublic();
+
+  const handleReviewDelete = (id) => {
+    console.log(id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPublic.delete(`review/details/${id}`).then((res) => {
+          console.log(res.data);
+          if (res.data.acknowledged) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
+        });
+      }
+    });
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -74,6 +104,7 @@ const ReviewsManage = () => {
                         {column.id === "actions" ? (
                           <Box display="flex">
                             <Button
+                              onClick={() => handleReviewDelete(row._id)}
                               variant="contained"
                               color="Third"
                               size="small"
