@@ -43,7 +43,7 @@ const ReviewsManage = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosPublic.delete(`review/details/${id}`).then((res) => {
+        axiosPublic.delete(`allreviews/${id}`).then((res) => {
           console.log(res.data);
           if (res.data.acknowledged) {
             refetch();
