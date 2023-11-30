@@ -32,6 +32,17 @@ const PropertiesDetails = () => {
       return res.data;
     },
   });
+  const {
+    data: reviewsId = [],
+    isPending: reviewloading,
+    refetch,
+  } = useQuery({
+    queryKey: ["reviewsByid"],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/allreviews/details/${params.id}`);
+      return res.data;
+    },
+  });
 
   const handleWishlist = () => {
     const review = { ...propertise, id: propertise._id };
@@ -56,24 +67,13 @@ const PropertiesDetails = () => {
   const [sliderRef] = useKeenSlider({
     loop: true,
     mode: "free",
-    breakpoints: {
-      "(min-width: 500px)": {
-        slides: {
-          perView: 1,
-          spacing: 15,
-        },
-      },
-
-      "(min-width: 980px)": {
-        slides: {
-          perView: 2,
-          spacing: 20,
-        },
-      },
+    slides: {
+      perView: 1,
+      spacing: 15,
     },
   });
 
-  if (loading) {
+  if (loading && reviewloading) {
     return (
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <CircularProgress />
@@ -94,7 +94,11 @@ const PropertiesDetails = () => {
           />
         </Paper>{" "}
         <Paper elevation={24} sx={{ mt: 4, p: 4, borderRadius: 5 }}>
-          <Box display="flex" justifyContent="space-between">
+          <Box
+            display="flex"
+            sx={{ flexDirection: { xs: "column", sm: "row" } }}
+            justifyContent="space-between"
+          >
             <Typography variant="h4" color="initial">
               {propertyTitle}
             </Typography>
@@ -107,6 +111,7 @@ const PropertiesDetails = () => {
                 Add to wishlist
               </Button>
               <ReviewModal
+                refetch={refetch}
                 id={_id}
                 propertyTitle={propertyTitle}
                 styles={{ p: 2, bgcolor: theme.palette.Third.main }}
@@ -135,7 +140,12 @@ const PropertiesDetails = () => {
               {agentName}
             </Typography>
           </Box>
-          <Box mt={2} display="flex" justifyContent="space-between">
+          <Box
+            sx={{ flexDirection: { xs: "column", sm: "row" } }}
+            mt={2}
+            display="flex"
+            justifyContent="space-between"
+          >
             <Typography mt>
               Price Range: ${minPrice} - ${maxPrice}
             </Typography>
@@ -195,30 +205,29 @@ const PropertiesDetails = () => {
             </Typography>
             <Divider></Divider>
             <Box my={3}>
-              <div
-                style={{ padding: 5 }}
-                ref={sliderRef}
-                className="keen-slider"
-              >
-                <Paper
-                  sx={{ boxShadow: 2 }}
-                  className="keen-slider__slide number-slide1"
+              {reviewsId.length === 0 ? (
+                <Typography textAlign="center" variant="h4" fontWeight={600}>
+                  No reviews
+                </Typography>
+              ) : (
+                <div
+                  style={{ padding: 5 }}
+                  ref={sliderRef}
+                  className="keen-slider"
                 >
-                  <ReviewCard></ReviewCard>
-                </Paper>
-                <Paper
-                  sx={{ boxShadow: 2 }}
-                  className="keen-slider__slide number-slide1"
-                >
-                  <ReviewCard></ReviewCard>
-                </Paper>
-                <Paper
-                  sx={{ boxShadow: 2 }}
-                  className="keen-slider__slide number-slide1"
-                >
-                  <ReviewCard></ReviewCard>
-                </Paper>
-              </div>
+                  {reviewsId.map((reviewItem) => {
+                    return (
+                      <Paper
+                        key={reviewItem.id}
+                        sx={{ boxShadow: 2 }}
+                        className="keen-slider__slide number-slide1"
+                      >
+                        <ReviewCard reviewItem={reviewItem}></ReviewCard>
+                      </Paper>
+                    );
+                  })}
+                </div>
+              )}
             </Box>
           </Box>
         </Paper>

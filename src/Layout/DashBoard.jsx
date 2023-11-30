@@ -103,8 +103,8 @@ const DashBoard = () => {
 
   const { user } = useContext(AuthProvider);
 
-  const admin = user.email === "admin@gmail.com" ? true : false;
-  const agent = user.email === "agent@gmail.com" ? true : false;
+  const admin = user?.email === "admin@gmail.com" ? true : false;
+  const agent = user?.email === "agent@gmail.com" ? true : false;
   const User = admin === false && agent === false;
 
   const handleDrawerOpen = () => {

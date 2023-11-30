@@ -28,8 +28,6 @@ const ReviewsManage = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [reviews, loading, refetch, isFetching] = useReviews();
 
-  console.log(reviews);
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };

@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 
 const ReviewCard = ({ reviewItem }) => {
   const { review, propertyTitle, reviewerImage, reviewerName } = reviewItem;
+  console.log(reviewerImage);
   return (
     <Card
       sx={{

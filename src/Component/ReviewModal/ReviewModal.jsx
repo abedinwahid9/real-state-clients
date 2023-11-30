@@ -24,7 +24,7 @@ const style = {
   p: 4,
 };
 
-const ReviewModal = ({ styles, propertyTitle, id }) => {
+const ReviewModal = ({ styles, propertyTitle, id, refetch }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -47,6 +47,7 @@ const ReviewModal = ({ styles, propertyTitle, id }) => {
     if (reviewRes.data.insertedId) {
       handleClose();
       reset();
+      refetch();
       Swal.fire({
         // position: "top-center",
         icon: "success",
