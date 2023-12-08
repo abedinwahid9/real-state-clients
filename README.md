@@ -1,4 +1,4 @@
-# This project name Auto care. It's a cars shop website. I'm describing most usefully 5 feature.
+# This project name Real State. It's a cars shop website. I'm describing most usefully 5 feature.
 
 - login & sign feature & also wrong password & password strong validity
 - only client can add products & when add product show success toast message
