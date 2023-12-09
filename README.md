@@ -6,10 +6,7 @@ Welcome to the Harbor Homes Real Estate website! This project is built using MUI
 
 - [Features](#features)
 - [Technologies Used](#technologies-used)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+- [links](#links)
 
 ## Features
 
@@ -43,7 +40,7 @@ Welcome to the Harbor Homes Real Estate website! This project is built using MUI
   - MongoDB
 
 
-### links:
+### links
 
 website: https://harborhomes.netlify.app <br/>
 server: https://github.com/abedinwahid9/real-state-server
