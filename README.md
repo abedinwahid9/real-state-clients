@@ -6,7 +6,7 @@ Welcome to the Harbor Homes Real Estate website! This project is built using MUI
 
 - [Features](#features)
 - [Technologies Used](#technologies-used)
-- [links](#links)
+- [Links](#links)
 
 ## Features
 
