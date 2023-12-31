@@ -18,12 +18,15 @@ import useAxiosPublic from "../../hooks/useAxiosPublic/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import CircularProgress from "@mui/material/CircularProgress";
 import ReviewModal from "../../Component/ReviewModal/ReviewModal";
+import { useContext } from "react";
+import { AuthProvider } from "../../AuthProvider/AuthContext";
+import Swal from "sweetalert2";
 
 const PropertiesDetails = () => {
   const theme = useTheme(themeContext);
-
   const params = useParams();
   const axiosPublic = useAxiosPublic();
+  const { user } = useContext(AuthProvider);
 
   const { data: propertise = [], isPending: loading } = useQuery({
     queryKey: ["propertiseItem"],
@@ -32,6 +35,21 @@ const PropertiesDetails = () => {
       return res.data;
     },
   });
+  const {
+    _id,
+    agentName,
+    agentEmail,
+    bathroom,
+    bed,
+    imgUrl,
+    maxPrice,
+    minPrice,
+    status,
+    propertyLocation,
+    propertyTitle,
+    squareFeet,
+    propertiseDescription,
+  } = propertise;
   const {
     data: reviewsId = [],
     isPending: reviewloading,
@@ -44,25 +62,40 @@ const PropertiesDetails = () => {
     },
   });
 
-  const handleWishlist = () => {
-    const review = { ...propertise, id: propertise._id };
-
-    console.log(review);
+  const propertiseInfo = {
+    propertyImg: imgUrl,
+    propertyTitle,
+    propertyLocation,
+    agentName,
+    agentEmail,
+    status,
+    minPrice,
+    maxPrice,
+    id: propertise._id,
   };
 
-  const {
-    _id,
-    agentName,
-    bathroom,
-    bed,
-    imgUrl,
-    maxPrice,
-    minPrice,
-    propertyLocation,
-    propertyTitle,
-    squareFeet,
-    propertiseDescription,
-  } = propertise;
+  const userInfo = {
+    userEmail: user.email,
+    photoUrl: user.photoURL,
+  };
+
+  const handleWishlist = async () => {
+    const wishlist = { ...propertiseInfo, userInfo };
+
+    console.log(wishlist);
+
+    const reviewRes = await axiosPublic.post("/wishlist", { ...wishlist });
+
+    if (reviewRes.data.insertedId) {
+      Swal.fire({
+        // position: "top-center",
+        icon: "success",
+        title: ` ${propertyTitle} add wishlist.`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
 
   const [sliderRef] = useKeenSlider({
     loop: true,

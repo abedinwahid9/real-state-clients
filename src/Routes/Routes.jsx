@@ -17,6 +17,8 @@ import PrivateRoute from "../Component/PrivateRoute/PrivateRoute";
 import LoginRoute from "../Component/PrivateRoute/LoginRoute";
 import Error from "../Pages/Error/Error";
 import ReviewsManage from "../Pages/DashBoard/Admin/ReviewsManage/ReviewsManage";
+import WishList from "../Pages/DashBoard/User/Wishlist/WishList";
+import PropertyBought from "../Pages/DashBoard/User/PropertyBought/PropertyBought";
 
 export const router = createBrowserRouter([
   {
@@ -129,6 +131,22 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ReviewsManage></ReviewsManage>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/wishlists",
+        element: (
+          <PrivateRoute>
+            <WishList></WishList>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/propertybought",
+        element: (
+          <PrivateRoute>
+            <PropertyBought></PropertyBought>
           </PrivateRoute>
         ),
       },

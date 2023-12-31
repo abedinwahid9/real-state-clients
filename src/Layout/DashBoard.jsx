@@ -223,7 +223,7 @@ const DashBoard = () => {
                 <>
                   <NavLink
                     style={{ textDecoration: "none", color: "#000" }}
-                    to={`/dashboard/wishlist`}
+                    to={`/dashboard/wishlists`}
                   >
                     <ListItemButton
                       sx={{
